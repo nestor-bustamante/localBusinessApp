@@ -1,0 +1,7 @@
+<nav>
+  <ul>
+    @for(item of navItems; track item.id; let e = $even){
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="{{ item.route }}">{{ item.name }}</a></li>
+    }
+  </ul>
+</nav>

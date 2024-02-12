@@ -1,0 +1,58 @@
+@if(isLoading) {
+  <app-spinner></app-spinner>
+}
+
+<div class="content-info">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      
+      <div [ngClass]="searchItems.length > 0 ? 'col col-8' : 'col col-12'">
+        <div class="position-relative h-100">
+          
+          <div class="search-bar">
+            <div class="row">
+              <div class="col">
+                <div class="search">
+
+                  <form 
+                    class="d-flex" 
+                    #f="ngForm" 
+                    (ngSubmit)="onSubmit(f)" 
+                    novalidate
+                  >
+                    <div>
+                      <input type="search"
+                      name="searchValue"
+                      placeholder="Busca negocios cercanos"
+                      ngModel 
+                      required
+                    >
+                    </div>
+                    <div>
+                      <button type="submit">
+                        <span class="material-symbols-outlined">search</span>
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="map"></div>
+
+        </div>
+      </div>
+
+      @if(searchItems.length > 0){
+        <div class="col col-4 h-100 scroll">
+          @for(item of searchItems; track item.cid; let idx = $index; let e = $even) {
+            <app-search-cards [data]="item" [index]="idx" #myElement />
+          }
+        </div>
+      }
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+
+<div id="element-{{data.cid}}">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ data.name }}</mat-card-title>
+      <mat-card-subtitle>{{ data.street_address }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      @if(data.about?.summary){
+        <p>{{ data.about.summary }}</p>
+      }
+      
+      @if(data?.phone_number){
+        <p>{{ data.phone_number}}</p>
+      }
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="row">
+        <div class="col"><button class="primary">Editar</button></div>
+        <div class="col"><button>Eliminar</button></div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  <hr>
+</div>

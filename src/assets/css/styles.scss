@@ -1,0 +1,300 @@
+@use '@angular/material' as mat;
+@include mat.core();
+$localBusinessData-primary: mat.define-palette(mat.$indigo-palette);
+$localBusinessData-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$localBusinessData-warn: mat.define-palette(mat.$red-palette);
+$localBusinessData-theme: mat.define-light-theme((
+  color: (
+    primary: $localBusinessData-primary,
+    accent: $localBusinessData-accent,
+    warn: $localBusinessData-warn,
+  )
+));
+@include mat.all-component-themes($localBusinessData-theme);
+
+@import '_mixins';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+$primary-color: #0d6efd;
+
+:root {
+  --size-base: 1.6rem;
+  --font-family: 'IBM Plex Sans';
+  --color-primary: #{$primary-color};
+  --color-white: #fff;
+  --color-overlay: rgba(0,0,0,.35);
+  --color-font: #212529;
+}
+
+* {
+  box-sizing: border-box;
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+html {
+  font-size: 10px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+html, 
+body {
+  margin: 0;
+  padding: 0;
+  @extend .h-100;
+}
+
+body { 
+  font: 400 var(--size-base) var(--font-family), sans-serif;
+  color: var(--color-font);
+  text-rendering: optimizeLegibility;
+}
+
+.container-fluid {
+  padding: 0 var(--size-base);
+}
+
+.container {
+  max-width: 132rem;
+  margin: 0 auto;
+  @extend .container-fluid;  
+}
+
+.content-info {
+  height: calc(100vh - 14.8rem);
+}
+
+#map {
+  width: calc(100% + calc(var(--size-base) * 2));
+  height: 100%;
+  margin: 0 calc(var(--size-base) * -1);
+  background-color: var(--color-overlay);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  margin: 0 calc(var(--size-base) * -.5);
+  flex-wrap: wrap;
+  
+  .col {
+    flex: 1 0;
+    padding: 0 calc(var(--size-base) * .5);
+    width: 100%;
+
+    $cols: 12;
+    
+    @for $i from 1 through 12 {
+      $size: calc((100% / $cols) * $i);
+      &.col-#{$i} {
+        -ms-flex: 0 0 #{$size};
+        flex: 0 0 #{$size};
+      }
+    }
+  }
+}
+
+header {
+  padding: var(--size-base) 0;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  h1 {
+    margin: 0;
+  }
+}
+
+footer {
+  @extend header;
+  h3 {
+    margin: 0;
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+nav {
+  @extend .h-100;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @extend .d-flex;
+    @extend .h-100;
+    @extend .align-items-center;
+    li {
+      margin: 0 0 0 calc(var(--size-base) * 2);
+      position: relative;
+      &:first-child {
+        margin: 0;
+      }
+      &:after {
+        content: "";
+        height: .1rem;
+        width: 0;
+        background-color: var(--color-white);
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        @include transition(200ms);
+      }
+      &.active {
+        &:after {
+          width: 100%;
+        }
+      }
+      a {
+        color: var(--color-white);
+        padding: calc(var(--size-base) * .6565) 0;
+        text-decoration: none;
+        display: block;
+      }
+    }
+  }
+}
+
+.position-relative {
+  position: relative;
+}
+
+.spinner-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: var(--color-overlay);
+  @extend .d-flex;
+  @extend .justify-content-center;
+  @extend .align-items-center;
+}
+
+.modal {
+  @extend .spinner-container;
+  .modal-dialog {
+    padding: calc(var(--size-base) * 1.5);
+    background-color: var(--color-white);
+    border-radius: calc(var(--size-base) * .25);
+    .modal-content {
+      .modal-header {
+        h3 {
+          margin: 0;
+          color: var(--color-primary);
+        }
+      }
+      .modal-body {
+        padding: var(--size-base) 0;
+      }
+    }
+  }
+}
+
+button {
+  $primary-color: #e9ecef;
+  padding: calc(var(--size-base) * .5) var(--size-base);
+  border: none;
+  border-radius: calc(var(--size-base) * .25);
+  background-color: $primary-color;
+  cursor: pointer;
+  @include transition(200ms);
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+  &.primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    &:hover {
+      $primary-color: #0d6efd;
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+.search-bar {
+  position: absolute;
+  width: 50%;
+  inset: var(--size-base) auto auto 25%;
+  z-index: 10;
+  .search form {
+    @extend .d-flex;
+    div {
+      flex: 1 0;
+      &:first-child {
+        background-color: var(--color-white);
+        border-radius: calc(var(--size-base) * 1.3125) 0 0 calc(var(--size-base) * 1.3125);
+      }
+      &:last-child {
+        max-width: calc(var(--size-base) * 2.625);
+        border: .1rem solid var(--color-overlay);
+        border-left: none;
+        background-color: var(--color-white);
+        border-radius: 0 calc(var(--size-base) * 1.3125) calc(var(--size-base) * 1.3125) 0;
+        position: relative;
+      }
+      button {
+        position: absolute;
+        inset: 0;
+        background-color: transparent;
+        padding: 0;
+        @extend .d-flex;
+        @extend .justify-content-center;
+        @extend .align-items-center;
+        .material-symbols-outlined {
+          font-size: calc(var(--size-base) * 1.25);
+        }
+      }
+    }
+  }
+
+  input {
+    height: calc(var(--size-base) * 2.625);
+    width: 100%;
+    border: .1rem solid var(--color-overlay);
+    border-right: none;
+    background-color: var(--color-white);
+    padding: 0 var(--size-base);
+    font: 400 var(--size-base) var(--font-family);
+    border-radius: calc(var(--size-base) * 1.3125) 0 0 calc(var(--size-base) * 1.3125);
+    &:-internal-autofill-selected {
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: var(--color-font);
+    }
+
+    &:-webkit-autofill {
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: var(--color-font);
+      &:hover,
+      &:focus,
+      &:active {
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: var(--color-font);
+      }
+    }
+  }
+}
+
+.scroll {
+  overflow: hidden;
+  overflow-y: scroll;
+}
